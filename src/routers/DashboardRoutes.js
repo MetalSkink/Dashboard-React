@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Products from '../pages/Products'
+import Products from '../pages/Products/Products'
 import Users from '../pages/Users'
 
 const DashboardRoutes = () => {
