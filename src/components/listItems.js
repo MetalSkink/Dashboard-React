@@ -12,22 +12,18 @@ import { Link } from 'react-router-dom';
 
 export const mainListItems = (
   <>
-    <Link to="/products">
-    <ListItemButton>
+    <ListItemButton component={Link} to="/products">
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Products" />
     </ListItemButton>
-    </Link>
-    <Link to="/users">
-    <ListItemButton>
+    <ListItemButton component={Link} to="/users">
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Users" />
     </ListItemButton>
-    </Link>
     <ListItemButton>
       <ListItemIcon>
         <BarChartIcon />

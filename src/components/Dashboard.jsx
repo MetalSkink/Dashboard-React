@@ -134,8 +134,8 @@ function DashboardContent() {
           <Toolbar
             sx={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
+              // alignItems: 'center',
+              // justifyContent: 'flex-end',
               px: [1],
             }}
           >

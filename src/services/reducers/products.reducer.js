@@ -2,6 +2,7 @@ import { types } from "../constants/actionTypes";
 
 const initialState = {
   products: [],
+  product: {},
   isLoading: true,
 };
 
@@ -16,6 +17,11 @@ export const productsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false
+      };
+    case types.FETCH_PRODUCT:
+      return {
+        ...state,
+        product: action.payload
       };
     case types.FETCH_PRODUCTS:
       return {

@@ -4,8 +4,10 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { Button, CircularProgress, Grid, Paper, Table, TableBody, TableContainer, TableHead, TableRow} from "@mui/material";
 import Pagination from "../../components/Pagination/Pagination";
 import { useSelector } from 'react-redux';
+import { Link, useLocation } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -17,11 +19,15 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const Products = () => {
-  const {products, isLoading, currentPage} = useSelector(state => state.products);
-  console.log(products);
-  
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
+const Products = () => {
+  const {products, isLoading} = useSelector(state => state.products);
+  const query = useQuery();
+  const page = query.get('page') || 1;
+  
   if (products.length === 0 && !isLoading) {
     <Grid container justifyContent="center" alignItems="center">
       No products
@@ -41,10 +47,11 @@ const Products = () => {
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Nombre</StyledTableCell>
-                  <StyledTableCell align="right">Precio</StyledTableCell>
-                  <StyledTableCell align="right">Categorias</StyledTableCell>
-                  <StyledTableCell align="right"></StyledTableCell>
-                  <StyledTableCell align="right"></StyledTableCell>
+                  <StyledTableCell>Precio</StyledTableCell>
+                  <StyledTableCell>Categoria</StyledTableCell>
+                  <StyledTableCell></StyledTableCell>
+                  <StyledTableCell></StyledTableCell>
+                  <StyledTableCell></StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -56,12 +63,16 @@ const Products = () => {
                     <TableCell component="th" scope="row">
                       {product.name}
                     </TableCell>
-                    <TableCell align="right">$ {product.price}</TableCell>
-                    <TableCell align="right">{product.category}</TableCell>
-                    <TableCell align="right">
+                    <TableCell>$ {product.price}</TableCell>
+                    <TableCell>{product.category}</TableCell>
+                    <TableCell>
+                      <Button variant="contained" color="primary" startIcon={<VisibilityIcon />}  component={Link} to={`/product/${product._id}`}>
+                        Ver</Button>
+                    </TableCell>
+                    <TableCell>
                       <Button variant="contained" color="error" startIcon={<DeleteIcon />}>Eliminar</Button>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell>
                       <Button variant="contained" color="secondary" startIcon={<EditIcon />}>Editar</Button>
                     </TableCell>
                   </TableRow>
@@ -71,7 +82,7 @@ const Products = () => {
           </TableContainer>
         )
       }
-      <Pagination page={currentPage}/>
+      <Pagination page={page}/>
     </>
   );
 };

@@ -14,14 +14,14 @@ const Paginate = ({page}) => {
 
   return (
     <Pagination
-      justifyContent="center"
-      alignItems="center"
+      // justifyContent="center"
+      // alignItems="center"
       count={totalPages}
       page={Number(page) || 1}
       variant='outlined'
       color='primary'
       renderItem={(item) => (
-        <PaginationItem {...item} component={Link} to={`/posts?page=${item.page}`}/>
+        <PaginationItem {...item} component={Link} to={`/products?page=${item.page}`}/>
       )}
     />
   )

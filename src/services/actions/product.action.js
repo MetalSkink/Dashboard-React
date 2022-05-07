@@ -13,3 +13,12 @@ export const getProducts = () => async(dispatch) => {
     console.log(error);
   }
 }
+
+export const getProduct = (id) => async(dispatch) => {
+  try {
+    const {data} = await api.getProductById(id);
+    dispatch({type: types.FETCH_PRODUCT, payload: data});
+  } catch (error) {
+    console.log(error);
+  }
+}
