@@ -3,19 +3,21 @@ import { Pagination, PaginationItem } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../../services/actions/product.action'
+import './styles.css';
 
 const Paginate = ({page}) => {
   const dispatch = useDispatch();
   const {totalPages} = useSelector(state => state.products);
 
   useEffect(() => {
-    dispatch(getProducts())
-  }, [dispatch])
+    dispatch(getProducts(page))
+  }, [dispatch,page])
 
   return (
     <Pagination
       // justifyContent="center"
       // alignItems="center"
+      className='pagination'
       count={totalPages}
       page={Number(page) || 1}
       variant='outlined'

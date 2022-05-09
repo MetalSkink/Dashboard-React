@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import { Button, CircularProgress, Grid, Paper, Table, TableBody, TableContainer, TableHead, TableRow} from "@mui/material";
+import { Button, CircularProgress, Grid, Paper, Table, TableBody, TableContainer, TableHead, TableRow, Divider, Typography} from "@mui/material";
 import Pagination from "../../components/Pagination/Pagination";
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from "react-router-dom";
@@ -36,13 +36,15 @@ const Products = () => {
 
   return (
     <>
+      <Typography variant='h4' component="h2">Productos</Typography>
+      <Divider style={{ margin: '20px 0' }} />
       {
         isLoading ? (
         <Grid container justifyContent="center" alignItems="center">
           <CircularProgress/>
         </Grid>
         ) : (
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} className="animate__animated animate__fadeIn">
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>

@@ -1,0 +1,24 @@
+.media{
+  border-radius: 20px;
+  /* width: 100%; */
+  max-height: 500px;
+}
+
+.product-info{
+
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+}
+
+.avatar{
+  margin-top: 15px !important;
+}
