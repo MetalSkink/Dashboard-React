@@ -30,6 +30,11 @@ export const productsReducer = (state = initialState, action) => {
         currentPage: action.payload.currentPage,
         totalPages: action.payload.totalPages,
       };
+    case types.DELETE_PRODUCT:
+      return {
+        ...state,
+        products: state.products.filter(product => product.id !== action.payload.id)
+      };
     default:
       return state;
   }

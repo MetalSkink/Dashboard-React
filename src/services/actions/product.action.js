@@ -24,3 +24,13 @@ export const getProduct = (id) => async(dispatch) => {
     console.log(error);
   }
 }
+
+export const deleteProduct = (id) => async(dispatch) => {
+  try {
+    const {data} = await api.deleteProduct(id);
+    console.log(data);
+    dispatch({type: types.DELETE_PRODUCT, payload: data});
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -1,7 +1,8 @@
 import { types } from "../constants/actionTypes";
 
 const initialState = {
-  authData: null
+  authData: null,
+  logged: false,
 }
 
 export const authReducer = (state= initialState, action) => {
@@ -10,13 +11,15 @@ export const authReducer = (state= initialState, action) => {
       localStorage.setItem('token', action.payload.token);
       return {
         ...state,
-        authData: action.payload
+        authData: action.payload,
+        logged: true
       } 
     case types.LOGOUT:
       localStorage.removeItem('token');
       return {
         ...state,
-        authData: null
+        authData: null,
+        logged: false
       }
     default:
       return state;

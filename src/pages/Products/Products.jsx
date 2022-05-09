@@ -3,11 +3,12 @@ import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { Button, CircularProgress, Grid, Paper, Table, TableBody, TableContainer, TableHead, TableRow, Divider, Typography} from "@mui/material";
 import Pagination from "../../components/Pagination/Pagination";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { deleteProduct } from "../../services/actions/product.action";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -25,9 +26,14 @@ function useQuery() {
 
 const Products = () => {
   const {products, isLoading} = useSelector(state => state.products);
+  const dispatch = useDispatch();
   const query = useQuery();
   const page = query.get('page') || 1;
   
+  const handleDelete = (id) => {
+    dispatch(deleteProduct(id));
+  }
+
   if (products.length === 0 && !isLoading) {
     <Grid container justifyContent="center" alignItems="center">
       No products
@@ -72,7 +78,7 @@ const Products = () => {
                         Ver</Button>
                     </TableCell>
                     <TableCell>
-                      <Button variant="contained" color="error" startIcon={<DeleteIcon />}>Eliminar</Button>
+                      <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={()=>handleDelete(product._id)}>Eliminar</Button>
                     </TableCell>
                     <TableCell>
                       <Button variant="contained" color="secondary" startIcon={<EditIcon />}>Editar</Button>

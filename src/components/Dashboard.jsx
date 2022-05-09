@@ -21,6 +21,8 @@ import { mainListItems, secondaryListItems } from './listItems';
 import DashboardRoutes from '../routers/DashboardRoutes';
 import { Button } from '@mui/material';
 import { Copyright } from './Copyright';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -72,9 +74,18 @@ const mdTheme = createTheme();
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(true);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const handleLogout = () => {
+    dispatch({ type: 'LOGOUT' });
+    navigate('/login', {
+      replace: true
+    });
+  }
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -107,7 +118,7 @@ function DashboardContent() {
             >
               AdminPro
             </Typography>
-            <Button color='error' variant="contained" startIcon={<LogoutIcon />}>
+            <Button color='error' variant="contained" startIcon={<LogoutIcon />} onClick={handleLogout}>
               Logout
             </Button>
             {/* <IconButton color="inherit">
