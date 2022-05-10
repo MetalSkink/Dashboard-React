@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { deleteProduct } from "../../services/actions/product.action";
+import Swal from "sweetalert2";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -26,12 +27,30 @@ function useQuery() {
 
 const Products = () => {
   const {products, isLoading} = useSelector(state => state.products);
+  const {rol} = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const query = useQuery();
   const page = query.get('page') || 1;
   
-  const handleDelete = (id) => {
-    dispatch(deleteProduct(id));
+  const handleDelete = (product) => {
+    Swal.fire({
+      title: 'Quieres borrar el producto?',
+      text: `Borraras ${product.name}`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Borrar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteProduct(product._id));
+        Swal.fire(
+          'Borrado!',
+          'El producto ha sido borrado.',
+          'success'
+        )
+      }
+    })
   }
 
   if (products.length === 0 && !isLoading) {
@@ -58,8 +77,14 @@ const Products = () => {
                   <StyledTableCell>Precio</StyledTableCell>
                   <StyledTableCell>Categoria</StyledTableCell>
                   <StyledTableCell></StyledTableCell>
-                  <StyledTableCell></StyledTableCell>
-                  <StyledTableCell></StyledTableCell>
+                  {
+                      rol === 'admin' || 'moderator' ? (
+                        <>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                        </>
+                    ) : null
+                    }
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -77,12 +102,18 @@ const Products = () => {
                       <Button variant="contained" color="primary" startIcon={<VisibilityIcon />}  component={Link} to={`/product/${product._id}`}>
                         Ver</Button>
                     </TableCell>
-                    <TableCell>
-                      <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={()=>handleDelete(product._id)}>Eliminar</Button>
-                    </TableCell>
-                    <TableCell>
-                      <Button variant="contained" color="secondary" startIcon={<EditIcon />}>Editar</Button>
-                    </TableCell>
+                    {
+                      rol === 'admin' || rol === 'moderator' ? (
+                        <>
+                        <TableCell>
+                          <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={()=>handleDelete(product)}>Eliminar</Button>
+                        </TableCell>
+                        <TableCell>
+                          <Button variant="contained" color="secondary" startIcon={<EditIcon />}>Editar</Button>
+                        </TableCell>
+                        </>
+                    ) : null
+                    }
                   </TableRow>
                 ))}
               </TableBody>

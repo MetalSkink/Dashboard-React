@@ -21,8 +21,8 @@ import './login.css';
 const theme = createTheme();
 
 const initialState = {
-  email: "mike@hotmail.com",
-  password: "Superacion754",
+  email: "luke@hotmail.com",
+  password: "Colaboracion75",
 }
 
 const Login = () => {

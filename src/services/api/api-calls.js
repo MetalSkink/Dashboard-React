@@ -4,7 +4,7 @@ const API = axios.create({baseURL: 'http://localhost:3300/'});
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('token')) {
-    req.headers.authorization = `x-access-token ${localStorage.getItem('token')}`;
+    req.headers['x-access-token'] = `${localStorage.getItem('token')}`;
   }
   return req;
 })

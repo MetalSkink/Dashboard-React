@@ -11,6 +11,7 @@ export const authReducer = (state= initialState, action) => {
       localStorage.setItem('token', action.payload.token);
       return {
         ...state,
+        rol: action.payload.roles.splice(-1)[0],
         authData: action.payload,
         logged: true
       } 
@@ -18,6 +19,7 @@ export const authReducer = (state= initialState, action) => {
       localStorage.removeItem('token');
       return {
         ...state,
+        rol: null,
         authData: null,
         logged: false
       }
