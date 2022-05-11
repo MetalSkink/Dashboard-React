@@ -78,7 +78,7 @@ const Products = () => {
                   <StyledTableCell>Categoria</StyledTableCell>
                   <StyledTableCell></StyledTableCell>
                   {
-                      rol === 'admin' || 'moderator' ? (
+                      rol === 'admin' || rol === 'moderator' ? (
                         <>
                         <StyledTableCell></StyledTableCell>
                         <StyledTableCell></StyledTableCell>

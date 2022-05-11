@@ -17,9 +17,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems, secondaryListItems } from './listItems';
 import DashboardRoutes from '../routers/DashboardRoutes';
-import { Button } from '@mui/material';
+import { Avatar, Button } from '@mui/material';
 import { Copyright } from './Copyright';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -71,7 +71,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const {name} = useSelector(state => state.auth.authData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toggleDrawer = () => {
@@ -116,6 +117,7 @@ function DashboardContent() {
             >
               AdminPro
             </Typography>
+            <Avatar sx={{ mr: 2 }}>{name.charAt(0)}</Avatar>
             <Button color='error' variant="contained" startIcon={<LogoutIcon />} onClick={handleLogout}>
               Logout
             </Button>

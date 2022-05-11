@@ -5,7 +5,6 @@ import { types } from '../constants/actionTypes';
 export const signin = (formData,navigate)=> async(dispatch) => {
   try {
     const {data} = await api.signin(formData);
-    console.log(data);
     dispatch({type: types.LOGIN, payload: data});
     navigate('/products', {
       replace: true

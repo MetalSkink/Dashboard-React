@@ -10,13 +10,11 @@ const Paginate = ({page}) => {
   const {totalPages} = useSelector(state => state.products);
 
   useEffect(() => {
-    dispatch(getProducts(page))
+    if (page) dispatch(getProducts(page))
   }, [dispatch,page])
 
   return (
     <Pagination
-      // justifyContent="center"
-      // alignItems="center"
       className='pagination'
       count={totalPages}
       page={Number(page) || 1}

@@ -16,9 +16,9 @@ const ProductDetails = () => {
   
   return (
     <>
-      <Typography variant='h3' component="h2">{product.name}</Typography>
+      <Typography variant='h3' component="h2">Detalles del producto</Typography>
       <Divider style={{ margin: '20px 0' }} />
-      <Grid container justifyContent="center" alignItems="center">
+      <Grid container justifyContent="center">
     {
         isLoading ? (
           <CircularProgress/>
@@ -28,9 +28,11 @@ const ProductDetails = () => {
             <img className='media' src={product.imgUrl || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} 
                  alt={product.name} />
           </Grid>
-          <Grid className='product-info' item xs={12} md={6}>
+          <Grid item xs={12} md={6}>
+            <Typography variant='h3' component="h3">{product.name}</Typography>
             <Typography gutterBottom variant='h4' color="textSecondary" component="h2">{product.category}</Typography>
-            <Typography gutterBottom variant='h5' component="h2">$ {product.price}</Typography>
+            <Divider/>
+            <Typography gutterBottom variant='h5' component="h2">Precio: $ {product.price}</Typography>
           </Grid>
           </>
         )}

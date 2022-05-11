@@ -11,6 +11,7 @@ API.interceptors.request.use((req) => {
 
 export const getProducts = (page) => API.get(`/products?page=${page}&limit=10`);
 export const getProductById = id => API.get(`/products/${id}`);
+export const addProduct = product => API.post('/products', product);
 export const deleteProduct = id => API.delete(`/products/${id}`);
 
 export const signin = (formData) => API.post('/auth', formData);
