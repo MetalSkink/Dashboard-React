@@ -1,12 +1,14 @@
-import { CircularProgress, Divider, Grid, Typography } from '@mui/material';
+import { Button, CircularProgress, Divider, Grid, Typography } from '@mui/material';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getProduct } from '../../services/actions/product.action';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './styles.css';
 
 const ProductDetails = () => {
   const {product, isLoading} = useSelector(state => state.products);
+  const navigate = useNavigate();
   const {productId} = useParams();
   const dispatch = useDispatch();
 
@@ -33,6 +35,7 @@ const ProductDetails = () => {
             <Typography gutterBottom variant='h4' color="textSecondary" component="h2">{product.category}</Typography>
             <Divider/>
             <Typography gutterBottom variant='h5' component="h2">Precio: $ {product.price}</Typography>
+            <Button sx={{ mt: 2 }} variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)}>Regresar</Button>
           </Grid>
           </>
         )}

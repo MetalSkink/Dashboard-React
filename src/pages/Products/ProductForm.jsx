@@ -1,25 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, Divider, Grid, TextField, Typography } from '@mui/material'
 import { useForm } from '../../hooks/useForm';
-import { useDispatch } from 'react-redux';
-import './styles.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { addProduct, getProduct } from '../../services/actions/product.action';
 import Swal from 'sweetalert2';
-import { addProduct } from '../../services/actions/product.action';
+import './styles.css';
 
 const ProductForm = () => {
 
+  
   const initialState = {
     name: "",
     price: 0,
     category: "",
     imgUrl: "",
   }
-
+  //Validaciones
+  const [nameValid, setNameValid] = useState(true);
+  const [priceValid, setPriceValid] = useState(true);
+  const [categoryValid, setCategoryValid] = useState(true);
+  //formulario
   const [formData, handleInputChange, reset] = useForm(initialState);
+  const {product} = useSelector(state => state.products);
+  const {productId} = useParams();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if(productId){
+      console.log("productId", productId);
+      dispatch(getProduct(productId));
+      console.log("product", product);
+    }
+  }, [productId,product, dispatch])
+  
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (formData.name.trim().length < 2) {
+      return setNameValid(false);
+    }else setNameValid(true);
+
+    if (formData.price <= 0) {
+      return setPriceValid(false);
+    } else setPriceValid(true);
+    
+    if (formData.category.trim().length < 2) {
+      return setCategoryValid(false);
+    } else setCategoryValid(true);
+
     dispatch(addProduct(formData));
     reset();
     Swal.fire({
@@ -41,7 +69,8 @@ const ProductForm = () => {
     <div>
     <Grid container spacing={2}>
       <Grid item xs={12} md={12}>
-      <TextField 
+      <TextField
+          error={!nameValid}
           id="outlined-basic" 
           label="Nombre" 
           value={formData.name}
@@ -53,6 +82,7 @@ const ProductForm = () => {
       <Grid item xs={12} md={6}>
       <TextField
         id="outlined-number"
+        error={!priceValid}
         label="Precio"
         type="number"
         name="price"
@@ -66,6 +96,7 @@ const ProductForm = () => {
       <Grid item xs={12} md={6}>
       <TextField 
           id="outlined-basic" 
+          error={!categoryValid}
           label="Categoría" 
           variant="outlined"
           value={formData.category}

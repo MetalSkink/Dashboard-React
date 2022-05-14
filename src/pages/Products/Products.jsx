@@ -109,7 +109,7 @@ const Products = () => {
                           <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={()=>handleDelete(product)}>Eliminar</Button>
                         </TableCell>
                         <TableCell>
-                          <Button variant="contained" color="secondary" startIcon={<EditIcon />}>Editar</Button>
+                          <Button variant="contained" color="secondary" startIcon={<EditIcon />} component={Link} to={`/edit-product/${product._id}`}>Editar</Button>
                         </TableCell>
                         </>
                     ) : null
